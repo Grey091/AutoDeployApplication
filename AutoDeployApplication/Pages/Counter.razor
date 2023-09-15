@@ -1,0 +1,25 @@
+﻿@page "/counter"
+@using AutoDeployApplication.Models;
+
+<h1>Ask AI</h1>
+
+<InputText @bind-Value="question"></InputText>
+
+
+
+<button class="btn btn-primary" @onclick="Communicate">GET ANSWER</button>
+
+<p role="status">Answer</p>
+<InputText @bind-Value="generatedAnswer"></InputText>
+
+@code {
+    private string question = "";
+    private string generatedAnswer = "";
+
+
+    private async void Communicate()
+    {
+        OpenAIClient client = new OpenAIClient();
+        generatedAnswer = await client.SendPrompt(question);
+    }
+}
